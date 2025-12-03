@@ -16,6 +16,7 @@ Feature: Billing Overview
     And I should be able to filter and sort by various criteria
 
   @Operator @MVP2
+
   Scenario: Display monthly statistics
     Given I select month "January 2024"
     When I open monthly statistics
