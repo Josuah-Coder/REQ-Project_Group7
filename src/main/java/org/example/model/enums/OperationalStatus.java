@@ -17,4 +17,8 @@ public enum OperationalStatus {
     public String getDisplayName() {
         return displayName;
     }
+
+    public boolean isEmpty() {
+        return this == OperationalStatus.OFFLINE;
+    }
 }

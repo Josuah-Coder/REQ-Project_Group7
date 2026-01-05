@@ -4,8 +4,11 @@ import io.cucumber.java.en.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.util.*;
+import org.example.model.*;
+import org.example.manager.*;
 
-public class PricingStepDefinitions extends CommonStepDefinitions {
+public class PricingStepDefinitions{
+    private Location currentLocation;
     private PricingProfile sourceProfile;
     private PricingProfile targetProfile;
     private List<PriceChange> changeLog;

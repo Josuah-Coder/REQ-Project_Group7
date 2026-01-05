@@ -5,8 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import org.example.model.*;
+import org.example.manager.*;
 
-public class BillingStepDefinitions extends CommonStepDefinitions {
+public class BillingStepDefinitions  {
+    private List<Transaction> currentTransactions;
+    private Map<String, String> currentStats;
+    private Object currentOperator;
     private List<Invoice> invoices;
     private BigDecimal totalSum;
 
@@ -151,5 +156,20 @@ public class BillingStepDefinitions extends CommonStepDefinitions {
         BigDecimal expected = new BigDecimal(expectedTotal.replace(" €", "").replace(".", "").replace(",", "."));
         assertEquals(expected, totalSum,
                 "Total sum should be " + expectedTotal);
+    }
+    @Given("I have the following transactions in January {int}:")
+    public void i_have_the_following_transactions_in_january(Integer year, io.cucumber.datatable.DataTable dataTable) {
+
+        System.out.println("Setting up test transactions for January " + year);
+
+
+        List<Map<String, String>> transactions = dataTable.asMaps();
+        System.out.println("Number of test transactions: " + transactions.size());
+
+        for (Map<String, String> transaction : transactions) {
+            System.out.println("Transaction: " + transaction);
+        }
+
+
     }
 }

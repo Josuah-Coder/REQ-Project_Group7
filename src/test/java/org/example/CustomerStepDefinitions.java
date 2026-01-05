@@ -4,8 +4,12 @@ import io.cucumber.java.en.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.util.*;
+import org.example.model.*;
+import org.example.manager.*;
 
-public class CustomerStepDefinitions extends CommonStepDefinitions {
+public class CustomerStepDefinitions {
+    private Customer currentCustomer;
+    private List<Transaction> currentTransactions;
     private Map<String, String> monthlySummary;
 
     @Given("I want to check my current charges")
@@ -82,15 +86,19 @@ public class CustomerStepDefinitions extends CommonStepDefinitions {
 
     @Then("I see the following summary:")
     public void i_see_the_following_summary(io.cucumber.datatable.DataTable dataTable) {
-        Map<String, String> expected = dataTable.asMap(String.class, String.class);
+        // DataTable als Liste von Maps lesen (jede Zeile ist ein Map)
+        List<Map<String, String>> rows = dataTable.asMaps();
 
-        for (Map.Entry<String, String> entry : expected.entrySet()) {
-            String key = entry.getKey();
-            String expectedValue = entry.getValue();
-            String actualValue = monthlySummary.get(key);
+        for (Map<String, String> row : rows) {
+            String metric = row.get("Metric");      // Spalte "Metric"
+            String expectedValue = row.get("Value"); // Spalte "Value"
 
-            assertEquals(expectedValue, actualValue,
-                    "Mismatch for metric: " + key);
+            if (expectedValue != null && !expectedValue.isEmpty()) {
+                String actualValue = monthlySummary.get(metric);
+
+                assertEquals(expectedValue, actualValue,
+                        "Mismatch for metric: " + metric);
+            }
         }
     }
 
@@ -150,5 +158,19 @@ public class CustomerStepDefinitions extends CommonStepDefinitions {
             assertEquals(expected.get("Duration"), actual.getDuration());
             assertEquals(expected.get("Energy"), actual.getEnergy() + " kWh");
         }
+    }
+    @Given("I am customer {string}")
+    public void i_am_customer(String customerId) {
+
+        currentCustomer = new Customer();
+        currentCustomer.setId(customerId);
+        currentCustomer.setName("Test Customer " + customerId);
+        currentCustomer.setAccountBalance(new BigDecimal("150.00"));
+        currentCustomer.setAvailableCredit(new BigDecimal("50.00"));
+
+
+        CustomerManager.getInstance().addCustomer(currentCustomer);
+
+        System.out.println("CustomerStepDefinitions: Customer set to " + customerId);
     }
 }

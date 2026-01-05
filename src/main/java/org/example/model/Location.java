@@ -1,6 +1,7 @@
 package org.example.model;
 
 import org.example.model.enums.OperationalStatus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Location {
     private String lastMaintenance;
     private String contactPerson;
     private String contactEmail;
+    private String description;
     private List<ChargingPoint> chargingPoints;
 
     public Location() {
@@ -44,41 +46,90 @@ public class Location {
         return this;
     }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getId() {
+        return id;
+    }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    public String getName() {
+        return name;
+    }
 
-    public String getCity() { return city; }
-    public void setCity(String city) { this.city = city; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getOperatingHours() { return operatingHours; }
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getOperatingHours() {
+        return operatingHours;
+    }
+
     public void setOperatingHours(String operatingHours) {
         this.operatingHours = operatingHours;
     }
 
-    public OperationalStatus getOperationalStatus() { return operationalStatus; }
+    public OperationalStatus getOperationalStatus() {
+        return operationalStatus;
+    }
+
     public void setOperationalStatus(OperationalStatus status) {
         this.operationalStatus = status;
     }
 
-    public String getCreatedDate() { return createdDate; }
-    public void setCreatedDate(String date) { this.createdDate = date; }
+    public String getCreatedDate() {
+        return createdDate;
+    }
 
-    public String getLastMaintenance() { return lastMaintenance; }
-    public void setLastMaintenance(String date) { this.lastMaintenance = date; }
+    public void setCreatedDate(String date) {
+        this.createdDate = date;
+    }
 
-    public String getContactPerson() { return contactPerson; }
-    public void setContactPerson(String person) { this.contactPerson = person; }
+    public String getLastMaintenance() {
+        return lastMaintenance;
+    }
 
-    public String getContactEmail() { return contactEmail; }
-    public void setContactEmail(String email) { this.contactEmail = email; }
+    public void setLastMaintenance(String date) {
+        this.lastMaintenance = date;
+    }
 
-    public List<ChargingPoint> getChargingPoints() { return chargingPoints; }
+    public String getContactPerson() {
+        return contactPerson;
+    }
+
+    public void setContactPerson(String person) {
+        this.contactPerson = person;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String email) {
+        this.contactEmail = email;
+    }
+
+    public List<ChargingPoint> getChargingPoints() {
+        return chargingPoints;
+    }
+
     public void addChargingPoint(ChargingPoint point) {
         this.chargingPoints.add(point);
         point.setLocationId(this.id);
@@ -107,5 +158,14 @@ public class Location {
     public String toString() {
         return String.format("Location{id='%s', name='%s', address='%s', points=%d}",
                 id, name, address, chargingPoints.size());
+    }
+
+    public String getDescription() {
+            return description;
+    }
+
+
+    public void setDescription(String updatedDescriptionForTesting) {
+        this.description = updatedDescriptionForTesting;
     }
 }

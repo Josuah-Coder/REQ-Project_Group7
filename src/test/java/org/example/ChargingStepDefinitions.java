@@ -1,11 +1,19 @@
 package org.example;
 
 import io.cucumber.java.en.*;
+import org.example.manager.*;
+import org.example.model.*;
+import org.example.manager.*;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class ChargingStepDefinitions extends CommonStepDefinitions {
+public class ChargingStepDefinitions{
+    private Customer currentCustomer;
+    private ChargingPoint currentChargingPoint;
+    private Location currentLocation;
     private ChargingSession activeSession;
     private BigDecimal estimatedCost;
 

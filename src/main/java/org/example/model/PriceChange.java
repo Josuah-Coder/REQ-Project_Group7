@@ -66,4 +66,25 @@ public class PriceChange {
         return String.format("PriceChange{location='%s', date=%s, by='%s', action='%s'}",
                 locationId, getDate(), changedBy, action);
     }
+
+    public String getDescription() {
+        StringBuilder description = new StringBuilder();
+
+        if (action != null) {
+            description.append(action);
+        }
+
+        if (oldPrice != null && newPrice != null) {
+            if (description.length() > 0) description.append(": ");
+            description.append(String.format("Price changed from €%s to €%s",
+                    oldPrice, newPrice));
+        }
+
+        if (reason != null) {
+            if (description.length() > 0) description.append(" - ");
+            description.append("Reason: ").append(reason);
+        }
+
+        return description.toString();
+    }
 }

@@ -1,7 +1,13 @@
 Feature: Billing and Transaction History
-As a customer
-I want to view my charging history and billing information
-So that I can track my expenses and manage my account
+  Background:
+    Given I am customer "CUST-2024-001"
+    And I have the following transactions in January 2024:
+      | Date       | Location               | Amount   | Type      |
+      | 2024-01-05 | Shopping Center Berlin | 12.45 €  | AC Charging|
+      | 2024-01-10 | Highway Rest Stop A8   | 28.56 €  | DC Charging|
+      | 2024-01-15 | Hotel Admiral Cologne  | 18.90 €  | AC Charging|
+      | 2024-01-20 | Highway Rest Stop A8   | 35.20 €  | DC Charging|
+      | 2024-01-25 | Shopping Center Berlin | 15.75 €  | AC Charging|
 
   Scenario: View list of charging sessions
     Given I have completed charging sessions in my account
@@ -23,15 +29,7 @@ So that I can track my expenses and manage my account
     And I should understand if I need to add more funds
 
   @Customer @MVP2 @Billing
-  Background:
-    Given I am customer "CUST-2024-001"
-    And I have the following transactions in January 2024:
-      | Date       | Location               | Amount   | Type      |
-      | 2024-01-05 | Shopping Center Berlin | 12.45 €  | AC Charging|
-      | 2024-01-10 | Highway Rest Stop A8   | 28.56 €  | DC Charging|
-      | 2024-01-15 | Hotel Admiral Cologne  | 18.90 €  | AC Charging|
-      | 2024-01-20 | Highway Rest Stop A8   | 35.20 €  | DC Charging|
-      | 2024-01-25 | Shopping Center Berlin | 15.75 €  | AC Charging|
+
 
   Scenario: Display monthly overview for January 2024
     When I view the monthly overview for "January 2024"

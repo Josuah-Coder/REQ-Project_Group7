@@ -117,4 +117,17 @@ public class ChargingSession {
         return String.format("ChargingSession{id='%s', point='%s', customer='%s', status='%s', duration=%dmin}",
                 id, chargingPointId, customerId, status.getDisplayName(), duration);
     }
+
+    public Object getTotalEnergy() {
+        return energyConsumed;
+    }
+
+    public Object getTotalCost() {
+        return actualCost;
+    }
+
+
+    public Object getChargingPoint() {
+        return chargingPointId;
+    }
 }

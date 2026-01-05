@@ -3,8 +3,13 @@ package org.example;
 import io.cucumber.java.en.*;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
+import java.util.Map;
 
-public class LocationStepDefinitions extends CommonStepDefinitions {
+import org.example.model.*;
+import org.example.manager.*;
+
+public class LocationStepDefinitions {
+    private Location currentLocation;
     private Location newLocation;
 
     @When("I create a new charging location with all required details")
