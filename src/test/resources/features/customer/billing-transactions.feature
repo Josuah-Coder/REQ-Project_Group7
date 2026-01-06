@@ -55,6 +55,6 @@ Feature: Billing and Transaction History
     And I sort by "Amount descending"
     Then I see 2 transactions:
       | Date       | Amount   | Duration | Energy   |
-      | 2024-01-20 | 35.20 €  | 55min    | 44.0 kWh |
-      | 2024-01-10 | 28.56 €  | 45min    | 37.5 kWh |
+      | 2024-01-20 | 35.20 €  | 55 min    | 44.0 kWh |
+      | 2024-01-10 | 28.56 €  | 45 min    | 37.5 kWh |
     And the total sum of filtered transactions is 63.76 €

@@ -155,7 +155,7 @@ public class CustomerStepDefinitions {
 
             assertEquals(expected.get("Date"), actual.getDate().toString());
             assertEquals(expected.get("Amount"), actual.getAmount().toString() + " €");
-            assertEquals(expected.get("Duration"), actual.getDuration());
+            assertEquals(expected.get("Duration"), actual.getDuration() + " min");
             assertEquals(expected.get("Energy"), actual.getEnergy() + " kWh");
         }
     }
@@ -173,4 +173,5 @@ public class CustomerStepDefinitions {
 
         System.out.println("CustomerStepDefinitions: Customer set to " + customerId);
     }
+
 }

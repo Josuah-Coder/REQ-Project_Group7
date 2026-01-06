@@ -3,6 +3,13 @@ Feature: Find Charging Point
   I want to view charging locations and their prices
   So that I can make an informed decision about where to charge my vehicle
 
+  Background:
+    Given the system has the following locations:
+      | Name                     | City     | Available AC | Available DC | AC Price | DC Price |
+      | Shopping Center Berlin   | Berlin   | 4            | 2            | 0.45     | 0.55     |
+      | Highway Rest Stop A8     | Augsburg | 2            | 6            | 0.50     | 0.60     |
+      | Hotel Admiral Cologne    | Cologne  | 3            | 1            | 0.48     | 0.58     |
+
   Scenario: View all charging locations
     Given I am using the charging application
     When I open the location overview
@@ -16,13 +23,6 @@ Feature: Find Charging Point
     And I should understand the cost structure before starting a session
 
   @Customer @MVP2
-  Background:
-    Given the system has the following locations:
-      | Name                     | City     | Available AC | Available DC | AC Price | DC Price |
-      | Shopping Center Berlin   | Berlin   | 4            | 2            | 0.45     | 0.55     |
-      | Highway Rest Stop A8     | Augsburg | 2            | 6            | 0.50     | 0.60     |
-      | Hotel Admiral Cologne    | Cologne  | 3            | 1            | 0.48     | 0.58     |
-
   Scenario: Display location details for Berlin shopping center
     When I as customer "max.mustermann@email.de" search for available charging points in "Berlin"
     And I select location "Shopping Center Berlin"

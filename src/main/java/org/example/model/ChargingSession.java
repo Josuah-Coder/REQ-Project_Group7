@@ -51,7 +51,7 @@ public class ChargingSession {
     public LocalDateTime getEndTime() { return endTime; }
     public void setEndTime(LocalDateTime endTime) { this.endTime = endTime; }
 
-    public int getDuration() { return duration; }
+    public String getDuration() { return duration + " min"; }
     public void setDuration(int duration) { this.duration = duration; }
 
     public int getPauseDuration() { return pauseDuration; }
