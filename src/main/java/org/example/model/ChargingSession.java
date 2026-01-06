@@ -51,7 +51,7 @@ public class ChargingSession {
     public LocalDateTime getEndTime() { return endTime; }
     public void setEndTime(LocalDateTime endTime) { this.endTime = endTime; }
 
-    public int getDuration() { return duration; }
+    public String getDuration() { return duration + " min"; }
     public void setDuration(int duration) { this.duration = duration; }
 
     public int getPauseDuration() { return pauseDuration; }
@@ -116,5 +116,18 @@ public class ChargingSession {
     public String toString() {
         return String.format("ChargingSession{id='%s', point='%s', customer='%s', status='%s', duration=%dmin}",
                 id, chargingPointId, customerId, status.getDisplayName(), duration);
+    }
+
+    public Object getTotalEnergy() {
+        return energyConsumed;
+    }
+
+    public Object getTotalCost() {
+        return actualCost;
+    }
+
+
+    public Object getChargingPoint() {
+        return chargingPointId;
     }
 }

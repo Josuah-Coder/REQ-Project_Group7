@@ -2,9 +2,14 @@ package org.example;
 
 import io.cucumber.java.en.*;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.*;
 
-public class MonitoringStepDefinitions extends CommonStepDefinitions {
+import java.math.BigDecimal;
+import java.util.*;
+import org.example.model.*;
+import org.example.manager.*;
+
+public class MonitoringStepDefinitions {
+    private Object currentOperator;
     private List<Location> filteredLocations;
     private Map<String, Object> dashboardMetrics;
 
@@ -89,8 +94,8 @@ public class MonitoringStepDefinitions extends CommonStepDefinitions {
         assertEquals(pointCount, totalPoints);
     }
 
-    @When("I apply the following filters:")
-    public void i_apply_the_following_filters(io.cucumber.datatable.DataTable dataTable) {
+    @When("I apply the following monitoring filters:")
+    public void i_apply_the_following_monitoring_filters(io.cucumber.datatable.DataTable dataTable) {
         Map<String, String> filters = dataTable.asMap(String.class, String.class);
 
         filteredLocations = MonitoringManager.getInstance().filterLocations(

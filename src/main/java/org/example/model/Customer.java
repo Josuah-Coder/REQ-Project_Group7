@@ -20,6 +20,10 @@ public class Customer {
         this.transactions = new ArrayList<>();
     }
 
+    public Customer() {
+
+    }
+
     public Customer withEmail(String email) {
         this.email = email;
         return this;

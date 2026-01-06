@@ -92,4 +92,8 @@ public class Transaction {
         return String.format("Transaction{id='%s', date=%s, amount=%.2f€, location='%s', status='%s'}",
                 id, date, amount, location, paymentStatus.getDisplayName());
     }
+
+    public void setId(String s) {
+        this.id = s;
+    }
 }

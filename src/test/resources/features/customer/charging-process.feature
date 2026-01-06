@@ -1,7 +1,12 @@
 Feature: Charging Process Execution
-As a customer
-I want to start and stop charging sessions
-So that I can efficiently charge my electric vehicle
+  As a customer
+  I want to start and stop charging sessions
+  So that I can efficiently charge my electric vehicle
+
+  Background:
+    Given I am customer "CUST-2024-001" with account balance 150.00 €
+    And I am at location "Highway Rest Stop A8"
+    And DC charging point "CP-A8-03" is available with price 0.60 €/kWh
 
   Scenario: Start charging session
     Given I have selected an available charging point
@@ -19,11 +24,6 @@ So that I can efficiently charge my electric vehicle
     And the charging point should become available for other users
 
   @Customer @MVP2 @Charging
-  Background:
-    Given I am customer "CUST-2024-001" with account balance 150.00 €
-    And I am at location "Highway Rest Stop A8"
-    And DC charging point "CP-A8-03" is available with price 0.60 €/kWh
-
   Scenario: Start charging session and bill successfully
     When I start charging at charging point "CP-A8-03"
     And I charge for 45 minutes at 150 kW

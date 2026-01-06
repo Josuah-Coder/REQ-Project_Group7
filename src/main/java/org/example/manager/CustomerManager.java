@@ -182,4 +182,5 @@ public class CustomerManager {
     public Customer refreshCustomerData(Customer customer) {
         return getCustomerById(customer.getId());
     }
+
 }

@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
+import org.example.model.*;
+import org.example.manager.*;
 
 public class CommonStepDefinitions {
     protected Customer currentCustomer;
@@ -25,11 +27,7 @@ public class CommonStepDefinitions {
         currentOperator = new Operator(operatorEmail, "Operator Name");
     }
 
-    @Given("I am customer {string}")
-    public void i_am_customer(String customerId) {
-        currentCustomer = CustomerManager.getInstance().getCustomerById(customerId);
-        assertNotNull(currentCustomer, "Customer should exist: " + customerId);
-    }
+
 
     @Given("I have authenticated my account")
     public void i_have_authenticated_my_account() {

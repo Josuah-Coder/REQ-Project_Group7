@@ -134,4 +134,28 @@ public class TransactionManager {
                 .map(Transaction::getAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
+
+    public List<Transaction> getCustomerTransactions(String customerId) {
+        List<Transaction> customerTransactions = new ArrayList<>();
+
+        if (customerId == null || customerId.trim().isEmpty()) {
+            return customerTransactions; // Leere Liste für ungültige/nicht vorhandene IDs
+        }
+
+        for (Transaction transaction : allTransactions) {
+            if (customerId.equals(transaction.getCustomerId())) {
+                customerTransactions.add(transaction);
+            }
+        }
+
+        // Optional: Nach Datum sortieren (neueste zuerst)
+        customerTransactions.sort((t1, t2) -> {
+            LocalDate date1 = t1.getDate();
+            LocalDate date2 = t2.getDate();
+            return date2.compareTo(date1); // Absteigend sortieren
+        });
+
+        return customerTransactions;
+
+    }
 }
