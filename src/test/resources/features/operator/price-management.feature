@@ -44,3 +44,17 @@ Feature: Price Management
       | 20.01.2024  | manager@energy.de| Weekend discount          | 0.50 €    | 0.45 €    | Weekend promotion      |
     And I can revert any change
     And I see who authorized each change
+
+  @ErrorCase
+  Scenario: Fail to copy prices to non-existent location
+    Given location "Highway Rest Stop A8" has pricing configuration
+    And I select "Copy Prices"
+    When I set the target location to "Non Existent Mall"
+    Then I should see an error message "Target location not found"
+
+  @EdgeCase
+  Scenario: Apply price increase resulting in very small increments
+    Given location "Hotel Admiral Cologne" has a base price of "0.48 €"
+    When I increase prices by 1%
+    Then the new price should be "0.48 €" due to rounding to two decimals
+    And the change is documented in the log

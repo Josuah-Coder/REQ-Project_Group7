@@ -4,9 +4,9 @@ Feature: Charging Process Execution
   So that I can efficiently charge my electric vehicle
 
   Background:
-    Given I am customer "CUST-2024-001" with account balance 150.00 €
+    Given I am customer "CUST-2024-001" with account balance "150.00 €"
     And I am at location "Highway Rest Stop A8"
-    And DC charging point "CP-A8-03" is available with price 0.60 €/kWh
+    And DC charging point "CP-A8-03" is available with price "0.60 €/kWh"
 
   Scenario: Start charging session
     Given I have selected an available charging point
@@ -34,7 +34,7 @@ Feature: Charging Process Execution
       | Charging Point     | CP-A8-03 (DC, 150kW)          |
       | Estimated Cost     | 67.50 € (37.5 kWh × 0.60 €)   |
       | Current Status     | Active                        |
-    And my account balance is 150.00 € beforehand
+    And my account balance is "150.00 €" beforehand
     And the session is monitored live
 
   Scenario: Pause and resume charging session
@@ -45,3 +45,18 @@ Feature: Charging Process Execution
     Then the pause time of 15 minutes is not calculated
     And the effective charging time is 20 minutes
     And the total status shows "Paused for 00:15:00"
+
+  @ErrorCase
+  Scenario: Attempt to start charging with insufficient balance
+    Given I am customer "CUST-LOW-FUND" with account balance "1.00 €"
+    And I am at location "Highway Rest Stop A8"
+    When I start charging at charging point "CP-A8-03"
+    Then the charging session should not begin
+    And I should see a "Low Balance" warning
+
+  @EdgeCase
+  Scenario: Handle charging session with extremely short duration
+    Given I start charging at charging point "CP-A8-03"
+    When I stop the charging session after 5 seconds
+    Then the session should be recorded with an amount of "0.00 €"
+    And the charging point should return to "available" status immediately

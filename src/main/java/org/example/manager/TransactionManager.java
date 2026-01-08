@@ -158,4 +158,7 @@ public class TransactionManager {
         return customerTransactions;
 
     }
+    public List<Transaction> getAllTransactions() {
+        return this.allTransactions;
+    }
 }

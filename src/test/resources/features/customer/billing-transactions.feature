@@ -57,4 +57,20 @@ Feature: Billing and Transaction History
       | Date       | Amount   | Duration | Energy   |
       | 2024-01-20 | 35.20 €  | 55 min    | 44.0 kWh |
       | 2024-01-10 | 28.56 €  | 45 min    | 37.5 kWh |
-    And the total sum of filtered transactions is 63.76 €
+    And the total sum of filtered transactions is "63.76 €"
+
+  @ErrorCase
+  Scenario: Handle filtering with invalid date range
+    Given I see my transaction list
+    When I filter by the following criteria:
+      | Filter      | Value                    |
+      | Time Period | 2024-05-01 to 2024-01-01 |
+    Then I should see an error message "End date cannot be before start date"
+
+  @EdgeCase
+  Scenario: View billing overview with zero transactions
+    Given I am customer "CUST-NEW-001"
+    And I have no transactions in my history
+    When I view the billing overview
+    Then I should see a total invoice amount of "0.00 €"
+    And the summary should show "0" transactions

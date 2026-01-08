@@ -37,7 +37,7 @@ Feature: Billing Overview
 
   Scenario: Filter transaction history details
     Given I see transaction history for January 2024
-    And there are 1,245 transactions
+    And there are "1,245" transactions
     When I apply the following filters:
       | Filter               | Value                    |
       | Location             | "Berlin-Alex"            |
@@ -53,4 +53,22 @@ Feature: Billing Overview
       | 17.01.2024  | 17:45:10 | 52.80 €  | 40min    | 33.0 kWh| CP-BER-DC-03     |
     And I can sort by any column
     And I can export all filtered transactions as CSV
-    And the total sum of filtered transactions is 3,245.80 €
+    And the total sum of filtered transactions is "3,245.80 €"
+
+  @ErrorCase
+  Scenario: Filter with invalid transaction count
+    Given I see transaction history for January 2024
+    When I apply a filter for a minimum amount of "999,999.00 €"
+    Then I should see 0 filtered transactions
+    And I should see a message "No transactions match your criteria"
+
+  @EdgeCase
+  Scenario: Display statistics for a month with no data
+    Given I select month "December 2023"
+    When I open monthly statistics
+    Then I see the following overview:
+      | Metric                     | Value      |
+      | Total Revenue              | 0.00 €     |
+      | Total Transactions         | 0          |
+      | Average per Transaction    | 0.00 €     |
+    And the total sum of filtered transactions is "0.00 €"

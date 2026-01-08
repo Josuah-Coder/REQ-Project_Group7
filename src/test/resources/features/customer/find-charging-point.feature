@@ -48,3 +48,15 @@ Feature: Find Charging Point
       | DC   | CCS       | 150 kW    | 4 available   |
       | DC   | CCS       | 350 kW    | 2 available   |
     And the average DC price is 0.60 €/kWh
+
+  @ErrorCase
+  Scenario: Search for charging points in non-existent city
+    When I as customer "user@example.com" search for available charging points in "Atlantis"
+    Then I should see a message "No locations found in this area"
+
+  @EdgeCase
+  Scenario: Display location with 100% occupancy
+    Given the location "Hotel Admiral Cologne" has 0 available chargers
+    When I open the location overview
+    Then the status for "Hotel Admiral Cologne" should be "Full"
+    And the total availability should be 0 %

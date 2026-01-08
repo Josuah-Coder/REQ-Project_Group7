@@ -19,6 +19,7 @@ public class Location {
     private String description;
     private List<ChargingPoint> chargingPoints;
 
+
     public Location() {
         this.id = "LOC-" + System.currentTimeMillis();
         this.operationalStatus = OperationalStatus.ACTIVE;

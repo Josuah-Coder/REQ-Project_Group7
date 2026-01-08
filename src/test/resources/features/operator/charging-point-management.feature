@@ -39,3 +39,17 @@ Feature: Charging Point Management
     And new charging sessions are blocked
     And a maintenance ticket is created (Ticket #WT-2024-015)
     And the dashboard status shows "Maintenance until 16:00"
+
+  @ErrorCase
+  Scenario: Fail to add charging point with duplicate ID
+    Given I am managing the location "Shopping Center Berlin"
+    When I attempt to add a new charging point with ID "CP-BER-DC-01"
+    Then I should see an error message "Charging point ID already exists"
+    And the location capacity should not be updated
+
+  @EdgeCase
+  Scenario: Deactivate last available charging point
+    Given charging point "CP-BER-AC-03" is the only "AVAILABLE" point at location "Shopping Center Berlin"
+    When I change the operational status to "MAINTENANCE"
+    Then the location status for "Shopping Center Berlin" should be "Full"
+    And the dashboard status shows "Maintenance until 16:00"

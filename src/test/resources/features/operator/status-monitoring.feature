@@ -37,3 +37,20 @@ Feature: Status Monitoring
       | Total DC Points      | 14        |
       | DC Availability      | 64%       |
       | Active Sessions      | 7         |
+
+  @ErrorCase
+  Scenario: Filter dashboard with conflicting criteria
+    Given I open the status dashboard
+    When I apply the following filters:
+      | Filter             | Value            |
+      | Availability       | "> 90%"          |
+      | Maintenance Status | "In Maintenance" |
+    Then I should see 0 locations in filtered results
+    And I should see a message "No locations match these conflicting criteria"
+
+  @EdgeCase
+  Scenario: Monitor network status during total system outage
+    Given the network has 25 locations
+    When all charging points report status "OFFLINE"
+    Then the dashboard should show a critical alert "Network Connection Lost"
+    And the overall availability should be "0%"

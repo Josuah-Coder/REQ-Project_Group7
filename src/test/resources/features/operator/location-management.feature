@@ -33,3 +33,18 @@ Feature: Location Management
       | Last Maintenance     | 10.01.2024                             |
       | Contact Person       | Max Mustermann (max@energy.de)         |
     And I can view all technical specifications
+
+  @ErrorCase
+  Scenario: Create location with missing mandatory information
+    Given I am logged in as an operator with appropriate permissions
+    When I attempt to create a new location with an empty name
+    Then I should see an error message "Location name is mandatory"
+    And the location should not be saved in the system
+
+  @EdgeCase
+  Scenario: Display details for a location with maintenance pending
+    Given I select the location "Hotel Admiral Cologne" (ID: LOC-COL-003)
+    And the operational status is "MAINTENANCE"
+    When I open the location details
+    Then the status for "Hotel Admiral Cologne" should be "Maintenance"
+    And I should see a message "Maintenance scheduled: 10.01.2024"
