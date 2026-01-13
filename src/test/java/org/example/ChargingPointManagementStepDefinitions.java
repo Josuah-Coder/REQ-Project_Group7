@@ -8,10 +8,10 @@ import org.example.manager.*;
 
 public class ChargingPointManagementStepDefinitions {
 
-    // --- Scenario: Add charging point ---
+
     @Given("I am managing an existing charging location")
     public void i_am_managing_an_existing_charging_location() {
-        // Dummy-Logik oder Zugriff auf Manager
+
     }
 
     @When("I add a new charging point with technical specifications")
@@ -27,7 +27,7 @@ public class ChargingPointManagementStepDefinitions {
     @Then("the location capacity should be updated accordingly")
     public void step_capacity() { assertTrue(true); }
 
-    // --- Scenario: Edit configuration ---
+
     @Given("I see the details of charging point {string}")
     public void i_see_details(String cpId) { }
 
@@ -46,7 +46,7 @@ public class ChargingPointManagementStepDefinitions {
     @Then("reservations are now possible")
     public void reservations() { }
 
-    // --- Scenario: Change status ---
+
     @Given("charging point {string} has status {string}")
     public void cp_status(String id, String status) { }
 
@@ -68,13 +68,13 @@ public class ChargingPointManagementStepDefinitions {
     @Then("new charging sessions are blocked")
     public void blocked() { }
 
-    // KORREKTUR für Ticket (Regex für Klammern und Sonderzeichen)
+
     @Then("^a maintenance ticket is created \\(Ticket ([^\\)]+)\\)$")
     public void a_maintenance_ticket_is_created(String ticketId) {
         System.out.println("Gefundenes Ticket: " + ticketId);
     }
 
-    // KORREKTUR für Dashboard Status
+
     @Then("the dashboard status shows {string}")
     public void dashboard_status(String status) {
         System.out.println("Dashboard Status: " + status);

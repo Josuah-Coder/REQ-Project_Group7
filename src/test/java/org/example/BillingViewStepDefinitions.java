@@ -85,12 +85,12 @@ public class BillingViewStepDefinitions {
 
     @And("there are {string} transactions")
     public void there_are_transactions_with_comma(String countStr) {
-        // Entfernt das Komma aus "1,245", damit Java 1245 daraus machen kann
+
         int expectedCount = Integer.parseInt(countStr.replace(",", ""));
 
-        // Test-Logik
+
         this.currentTransactions = TransactionManager.getInstance().getAllTransactions();
-        // In einem echten Test würdest du hier assertEquals(expectedCount, ...) nutzen
+
     }
 
     @When("I apply the following filters:")
@@ -120,7 +120,7 @@ public class BillingViewStepDefinitions {
 
     @And("the total sum of filtered transactions is {string}")
     public void the_total_sum_of_filtered_transactions_is(String expectedTotalStr) {
-        // 1. Clean the string (remove currency and separators)
+
         String cleanAmount = expectedTotalStr
                 .replace("€", "")
                 .replace(" ", "")
@@ -128,14 +128,14 @@ public class BillingViewStepDefinitions {
 
         BigDecimal expected = new BigDecimal(cleanAmount).setScale(2, java.math.RoundingMode.HALF_UP);
 
-        // 2. Calculate sum only from current list to avoid manager data overhead
+
         BigDecimal actualSum = BigDecimal.ZERO;
         if (currentTransactions != null && !currentTransactions.isEmpty()) {
             for (Transaction t : currentTransactions) {
                 actualSum = actualSum.add(t.getAmount());
             }
         } else {
-            // Fallback to manager if list is empty
+
             actualSum = TransactionManager.getInstance().calculateTotal(
                     TransactionManager.getInstance().getAllTransactions()
             );
@@ -143,7 +143,7 @@ public class BillingViewStepDefinitions {
 
         BigDecimal actualNormalized = actualSum.setScale(2, java.math.RoundingMode.HALF_UP);
 
-        // 3. Compare with tolerance
+
         assertEquals(expected.doubleValue(), actualNormalized.doubleValue(), 0.01,
                 "Sum mismatch! Expected: " + expected + " - Actual: " + actualNormalized +
                         " (Count: " + (currentTransactions != null ? currentTransactions.size() : 0) + ")");

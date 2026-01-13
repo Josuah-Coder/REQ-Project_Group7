@@ -86,12 +86,12 @@ public class CustomerStepDefinitions {
 
     @Then("I see the following summary:")
     public void i_see_the_following_summary(io.cucumber.datatable.DataTable dataTable) {
-        // DataTable als Liste von Maps lesen (jede Zeile ist ein Map)
+
         List<Map<String, String>> rows = dataTable.asMaps();
 
         for (Map<String, String> row : rows) {
-            String metric = row.get("Metric");      // Spalte "Metric"
-            String expectedValue = row.get("Value"); // Spalte "Value"
+            String metric = row.get("Metric");
+            String expectedValue = row.get("Value");
 
             if (expectedValue != null && !expectedValue.isEmpty()) {
                 String actualValue = monthlySummary.get(metric);

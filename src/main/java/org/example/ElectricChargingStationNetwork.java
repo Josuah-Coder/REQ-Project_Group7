@@ -8,19 +8,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Electric Charging Station Network - Main Application
- *
- * This application manages an electric vehicle charging network including:
- * - Location management
- * - Charging point operations
- * - Customer billing and transactions
- * - Pricing management
- * - Network monitoring
- *
- * @author Your Group
- * @version Final Release
- */
 public class ElectricChargingStationNetwork {
 
     private static Scanner scanner = new Scanner(System.in);
@@ -65,13 +52,11 @@ public class ElectricChargingStationNetwork {
         scanner.close();
     }
 
-    /**
-     * Initialize system with test data
-     */
+
     private static void initializeSystem() {
         System.out.println("⚙ Initializing system...");
 
-        // Managers initialize themselves with test data via Singleton pattern
+
         LocationManager.getInstance();
         ChargingPointManager.getInstance();
         CustomerManager.getInstance();
@@ -82,9 +67,7 @@ public class ElectricChargingStationNetwork {
         System.out.println();
     }
 
-    /**
-     * Display main menu
-     */
+
     private static void displayMainMenu() {
         System.out.println("\n╔════════════════ MAIN MENU ════════════════╗");
         System.out.println("║  1. Customer Portal                       ║");
@@ -96,9 +79,7 @@ public class ElectricChargingStationNetwork {
         System.out.print("Your choice: ");
     }
 
-    /**
-     * Customer menu and operations
-     */
+
     private static void customerMenu() {
         System.out.println("\n╔════════════════ CUSTOMER PORTAL ════════════════╗");
         System.out.println("║  1. Find Charging Locations                    ║");
@@ -139,9 +120,7 @@ public class ElectricChargingStationNetwork {
         }
     }
 
-    /**
-     * Operator menu and operations
-     */
+
     private static void operatorMenu() {
         System.out.println("\n╔════════════════ OPERATOR DASHBOARD ════════════════╗");
         System.out.println("║  1. View All Locations                            ║");
@@ -190,7 +169,7 @@ public class ElectricChargingStationNetwork {
         }
     }
 
-    // ==================== Customer Functions ====================
+
 
     private static void customerLogin() {
         System.out.print("\nEnter Customer ID (e.g., CUST-2024-001): ");
@@ -242,7 +221,6 @@ public class ElectricChargingStationNetwork {
             if (currentCustomer == null) return;
         }
 
-        // Show available charging points
         List<ChargingPoint> available = ChargingPointManager.getInstance().getAvailableChargingPoints();
 
         if (available.isEmpty()) {
@@ -267,8 +245,8 @@ public class ElectricChargingStationNetwork {
 
         ChargingPoint selectedPoint = available.get(choice);
 
-        // Check balance
-        BigDecimal estimatedCost = new BigDecimal("30.00"); // Estimated
+
+        BigDecimal estimatedCost = new BigDecimal("30.00");
         if (currentCustomer.getAccountBalance().compareTo(estimatedCost) < 0) {
             System.out.println("\n✗ Insufficient balance!");
             System.out.println("  Your balance: " + currentCustomer.getAccountBalance() + " €");
@@ -276,7 +254,7 @@ public class ElectricChargingStationNetwork {
             return;
         }
 
-        // Start session
+
         ChargingSession session = ChargingSessionManager.getInstance()
                 .startSession(selectedPoint, currentCustomer);
 
@@ -301,9 +279,9 @@ public class ElectricChargingStationNetwork {
             return;
         }
 
-        // Simulate some charging
-        session.setDuration(30); // 30 minutes
-        session.setPower(150); // 150 kW
+
+        session.setDuration(30);
+        session.setPower(150);
         session.calculateEnergyAndCost();
 
         ChargingSessionManager.getInstance().stopSession(session);
@@ -314,7 +292,7 @@ public class ElectricChargingStationNetwork {
         System.out.println("  Energy delivered: " + session.getEnergyConsumed() + " kWh");
         System.out.println("  Cost: " + session.getEstimatedCost() + " €");
 
-        // Charge customer
+
         currentCustomer.chargeAccount(session.getEstimatedCost());
         System.out.println("  New balance: " + currentCustomer.getAccountBalance() + " €");
     }
@@ -367,7 +345,6 @@ public class ElectricChargingStationNetwork {
         System.out.println("═════════════════════════════════════════════");
     }
 
-    // ==================== Operator Functions ====================
 
     private static void operatorLogin() {
         System.out.print("\nEnter Operator Email: ");
@@ -560,7 +537,7 @@ public class ElectricChargingStationNetwork {
         System.out.println("════════════════════════════════════════════");
     }
 
-    // ==================== Demo & Statistics ====================
+
 
     private static void displayNetworkStatistics() {
         System.out.println("\n╔════════════════ NETWORK STATISTICS ════════════════╗");
@@ -590,14 +567,14 @@ public class ElectricChargingStationNetwork {
         System.out.println("\n════════════ RUNNING DEMO SCENARIO ════════════");
         System.out.println("This demonstrates the complete charging workflow...\n");
 
-        // 1. Customer finds location
+
         System.out.println("1️⃣  Customer searches for charging locations...");
         List<Location> locations = LocationManager.getInstance().getAllLocations();
         if (!locations.isEmpty()) {
             System.out.println("   ✓ Found " + locations.size() + " locations");
         }
 
-        // 2. Customer starts session
+
         System.out.println("\n2️⃣  Customer starts charging session...");
         Customer demoCustomer = CustomerManager.getInstance().getCustomerById("CUST-2024-001");
         if (demoCustomer == null) {
@@ -612,7 +589,7 @@ public class ElectricChargingStationNetwork {
             ChargingSession session = ChargingSessionManager.getInstance().startSession(cp, demoCustomer);
             System.out.println("   ✓ Session " + session.getId() + " started at " + cp.getId());
 
-            // 3. Charging in progress
+
             System.out.println("\n3️⃣  Charging in progress...");
             session.setDuration(25);
             session.setPower(150);
@@ -620,12 +597,12 @@ public class ElectricChargingStationNetwork {
             System.out.println("   ⚡ Energy: " + session.getEnergyConsumed() + " kWh");
             System.out.println("   💰 Cost: " + session.getEstimatedCost() + " €");
 
-            // 4. Session completes
+
             System.out.println("\n4️⃣  Stopping charging session...");
             ChargingSessionManager.getInstance().stopSession(session);
             System.out.println("   ✓ Session completed");
 
-            // 5. Billing
+
             System.out.println("\n5️⃣  Processing payment...");
             demoCustomer.chargeAccount(session.getEstimatedCost());
             System.out.println("   ✓ Payment processed");
@@ -636,7 +613,7 @@ public class ElectricChargingStationNetwork {
         System.out.println("════════════════════════════════════════════════");
     }
 
-    // ==================== Helper Functions ====================
+
 
     private static int getIntInput() {
         try {

@@ -221,7 +221,6 @@ public class FindChargingPointStepDefinitions {
 
     @Then("^the average DC price is (.+) €/kWh$")
     public void the_average_dc_price_regex(String price) {
-        // Extrahiert die Zahl aus dem String, egal wie sie formatiert ist
         String cleanPrice = price.replace(",", ".");
         double val = Double.parseDouble(cleanPrice);
         assertTrue(val > 0);

@@ -17,33 +17,33 @@ public class CommonStepDefinitions {
     protected List<Transaction> currentTransactions;
     protected Map<String, String> currentStats;
 
-    // --- Login & Authentication ---
+
 
     @Given("I am logged in as an operator with appropriate permissions")
     public void i_am_logged_in_as_operator_with_permissions() {
-        // Nutzt den Standard-Admin aus dem OperatorManager
+
         currentOperator = OperatorManager.getInstance().getCurrentOperator();
         assertNotNull(currentOperator, "Default Operator not found");
     }
 
     @Given("I am logged in as operator {string}")
     public void i_am_logged_in_as_operator(String operatorEmail) {
-        // Führt einen Login-Versuch über den Manager aus
+
         currentOperator = OperatorManager.getInstance().login(operatorEmail, "any_password");
         assertNotNull(currentOperator, "Login failed for operator: " + operatorEmail);
     }
 
     @Given("I have authenticated my account")
     public void i_have_authenticated_my_account() {
-        // Da dies oft für Kunden genutzt wird, stellen wir sicher, dass jemand da ist
+
         assertTrue(true);
     }
 
-    // --- Location Management (Details & Selection) ---
+
 
     @And("^I select the location \"([^\"]*)\" \\(ID: ([^\"]*)\\)$")
     public void i_select_the_location(String name, String id) {
-        // Sucht die Location im LocationManager
+
         currentLocation = LocationManager.getInstance().getLocationById(id);
 
         assertNotNull(currentLocation, "Location with ID " + id + " not found in LocationManager!");
@@ -59,7 +59,7 @@ public class CommonStepDefinitions {
     public void i_see_the_following_information(io.cucumber.datatable.DataTable dataTable) {
         Map<String, String> expected = dataTable.asMap(String.class, String.class);
 
-        // Vergleicht die Felder der ausgewählten Location mit der Tabelle
+
         assertEquals(expected.get("Name"), currentLocation.getName());
         assertEquals(expected.get("Address"), currentLocation.getAddress());
         assertEquals(expected.get("Operating Hours"), currentLocation.getOperatingHours());
@@ -72,12 +72,11 @@ public class CommonStepDefinitions {
 
     @And("I can view all technical specifications")
     public void i_can_view_all_technical_specifications() {
-        // Prüft, ob Ladepunkte im Objekt hinterlegt sind
         assertNotNull(currentLocation.getChargingPoints());
         assertFalse(currentLocation.getChargingPoints().isEmpty());
     }
 
-    // --- Global Helpers ---
+
 
 
 

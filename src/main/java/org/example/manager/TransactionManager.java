@@ -139,7 +139,7 @@ public class TransactionManager {
         List<Transaction> customerTransactions = new ArrayList<>();
 
         if (customerId == null || customerId.trim().isEmpty()) {
-            return customerTransactions; // Leere Liste für ungültige/nicht vorhandene IDs
+            return customerTransactions;
         }
 
         for (Transaction transaction : allTransactions) {
@@ -148,11 +148,11 @@ public class TransactionManager {
             }
         }
 
-        // Optional: Nach Datum sortieren (neueste zuerst)
+
         customerTransactions.sort((t1, t2) -> {
             LocalDate date1 = t1.getDate();
             LocalDate date2 = t2.getDate();
-            return date2.compareTo(date1); // Absteigend sortieren
+            return date2.compareTo(date1);
         });
 
         return customerTransactions;
